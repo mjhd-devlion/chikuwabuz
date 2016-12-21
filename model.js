@@ -6,10 +6,10 @@ var bcrypt = require("bcrypt")
 
 // Define community schema
 var communitySchema = Schema({
-	_id: Number,
+	_id: String,
 	name: {type: String, select: true},
 	host_name: {type: String, required: true, trim: true, select: true},
-	host_id: {type: Number, select: true},
+	host_id: {type: String, select: true},
 	// set password to not queryable (without select)
 	password: {type: String, required: true, trim: true, select: false},
 	created_at: {type: Date, default: Date.now},
@@ -19,7 +19,7 @@ var communitySchema = Schema({
 // Define message schema
 var messageSchema = Schema({
 	message: String,
-	user_id: Number,
+	user_id: String,
 	user_name: {type: String, trim: true},
 	//community: {type: Number, ref: "Community"},
 	created_at: {type: Date, default: Date.now}
