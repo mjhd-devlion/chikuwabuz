@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+<html>
+
+	<!-- ヘッダ : ページの情報を書く -->
+	
+	<head>
+		<title>ホーム</title>
+		<meta charset="Shift-JIS">
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+
+	<!-- ボディ: 実際のページの内容を書く -->
+	<body>
+		<!-- 上のメニューバー -->
+		<header>
+			<nav>
+				<ul class="left">
+					<li class="logo">チクちゃ</li>
+					<li id="test-button">ホーム</li>
+				</ul>
+			</nav>
+		</header>
+		<article>
+		
+		<div class="blocka" align="center">
+			<table border="0">
+				<tr bgcolor="#40BAD2">
+					<th width="150" height="50"><font color="#FFFFFF">コミュニティ名</font></th>
+					<th width="150"  height="50"><font color="#FFFFFF">ホスト名</font></th>
+				</tr>
+			</table>
+			<table border="0">
+					<tbody id="test-text">
+					</tbody>	
+			</table>
+		
+			<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+			<script>
+			$(function() {
+				// ここからプログラムを書きます
+		
+				var count=0;
+
+				// ボタンをクリックしたとき
+				$("#test-button").click(function () {
+				
+					count+=10;
+		 			// サーバと通信する
+		 			$.get({
+						url: "http://chikuwabuz2.herokuapp.com/community/list/name/"+count, // 接続先
+			
+						// 通信が完了したとき
+						success: function(data) {
+
+							$("#test-text").text("");
+							//$("#test-text2").text("");
+
+							// コミュニティを1つずつ表示する
+							for (var i = 0; i < data.length; i++) {
+					
+								if(i % 2== 0){
+									$("#test-text").append("<tr bgcolor='#ADD8E6'><td width='150'><font color='#5F9EA0'><a href='./join.html?community=" + data[i]["_id"] + "&host_name=" + encodeURIComponent(data[i].host_name) + "&community_name=" + encodeURIComponent(data[i].name) + "'>" + data[i].name + "</font></td>,"+ 
+														"<td width='150'><font color='#5F9EA0'>" + data[i].host_name + "</font></td></tr>");
+								}
+
+								else{
+
+								$("#test-text").append("<tr bgcolor='#F0F8FF'><td width='150'><font color='#5F9EA0'><a href='./join.html?community=" + data[i]["_id"] + "&host_name=" + encodeURIComponent(data[i].host_name) + "&community_name=" + encodeURIComponent(data[i].name) + "'>" + data[i].name + "</font></td>,"+ 
+														"<td width='150'><font color='#5F9EA0'>" + data[i].host_name + "</font></td></tr>");
+								}
+							}
+						}
+					});
+	 			});
+
+				 // ここまで
+	 		 });
+			 </script>
+		</div>
+
+		<div class="blockb" align="center">
+		<img src="ちくわぶ2.png" title="ちくわぶより普通に大根が好き～～"><br>
+		<input  type="button" style="color:#FFFFFF; background-color:#40BAD2; width:200px; height:50px" onclick="location.href='./make.html'" value="コミュニティ作成">
+
+		</div>
+
+		<div class="blockc" align="center">
+		<table border="0">
+	 		<tr bgcolor="#40BAD2">
+				<th width="150" height="50"><font color="#FFFFFF">コミュニティ名</font></th>
+				<th width="150"  height="50"><font color="#FFFFFF">ホスト名</font></th>
+			</tr>
+		</table>
+		<table border="0">
+				<tbody id="test-text2">
+				</tbody>
+		</table>
+		
+			<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+			<script>
+	 		 $(function() {
+				// ここからプログラムを書きます
+
+				var count2 = 0;	
+				 // ボタンをクリックしたとき
+				$("#test-button").click(function () {
+
+					count2+=10;
+					// サーバと通信する
+					$.get({
+						 url: "http://chikuwabuz.herokuapp.com/community/list/created_at/"+count2, // 接続先
+			
+						// 通信が完了したとき
+						success: function(data) {
+
+							$("#test-text2").text("");
+			
+							// コミュニティを1つずつ表示する
+							for (var i = 0; i < data.length; i++) {
+			
+								if(i % 2== 0){
+									$("#test-text2").append("<tr bgcolor='#ADD8E6'><td width='150'><font color='#5F9EA0'><a href='./join.html?community=" + data[i]["_id"] + "&host_name=" + encodeURIComponent(data[i].host_name) + "&community_name=" + encodeURIComponent(data[i].name) + "'>" + data[i].name + "</font></td>,"+ 
+														"<td width='150'><font color='#5F9EA0'>" + data[i].host_name + "</font></td></tr>");
+								}
+
+								else{
+									$("#test-text2").append("<tr bgcolor='#F0F8FF'><td width='150'><font color='#5F9EA0'><a href='./join.html?community=" + data[i]["_id"] + "&host_name=" + encodeURIComponent(data[i].host_name) + "&community_name=" + encodeURIComponent(data[i].name) + "'>" + data[i].name + "</font></td>,"+ 
+														"<td width='150'><font color='#5F9EA0'>" + data[i].host_name + "</font></td></tr>");
+								}
+					
+							}
+						}
+			
+					});
+				});
+
+				 // ここまで
+				$("#test-button").trigger("click");
+			});
+			</script>
+	
+
+
+
+		</div>
+
+
+		<style type="text/css">
+		div.blocka {
+
+			float: left;
+			width: 30%;
+		}
+		div.blockb {
+		  
+			float: left;
+			width: 40%;
+		}
+		div.blockc {
+		  
+			float: left;
+			width: 30%;
+		}
+		</style>
+
+		</article>
+
+	</body>
+
+</html>

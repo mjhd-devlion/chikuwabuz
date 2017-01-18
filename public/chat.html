@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<html>
+
+	<!-- ヘッダ : ページの情報を書く -->
+
+	<head>
+
+		<title>タイトル</title>
+
+		<meta charset="Shift-JIS">
+
+		<link rel="stylesheet" type="text/css" href="style.css">
+	<style>
+		#msg {
+			margin-bottom: 20px;
+		}
+		#messages {
+			margin-top: 15px;
+		}
+		#line {
+			margin-bottom: 20px;
+		}
+	</style>
+	
+	</head>
+
+
+
+	<!-- ボディ: 実際のページの内容を書く -->
+
+	<body>
+
+
+		<!-- 上のメニューバー -->
+		<header>
+
+			<nav>
+
+				<ul class="left">
+
+					<li class="logo">チクちゃ</li>
+
+					<li><a href="./index.html">ホーム</a></li>
+
+				</ul>
+
+			</nav>
+
+		</header>
+
+
+		<article with="100%">
+
+			
+	
+		<div id="messages"></div>
+
+
+
+			<div class="box" align="center">
+				<textarea  id="test-input"></textarea>
+				<button id="test-button"　type="button" style="height:40px;weight:120px;border:2px solid #40BAD2; background-color:#40BAD2;"><font style="font-size:1.2em;font-weight:800; line-height:1em; color:#FFFFFF;">書き込む</font></button>
+
+				<button id="test-button2"　type="button" style="height:40px;weight:120px;border:2px solid #40BAD2; background-color:#40BAD2;"><font style="font-size:1.2em;font-weight:800; line-height:1em; color:#FFFFFF;">退出する</font></button><br>
+			</div>
+<style type="text/css">
+article {
+    overflow: scroll; 
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    bottom: 250px;
+}
+div.box{
+border-top: 3px solid #40BAD2;
+background-color:#FFFFFF;
+position: fixed;
+    bottom:0px; /* 下:0px */
+    right:0px;
+    left:0px;
+padding: 10px;
+height: 250px;
+}
+</style>
+
+
+
+
+
+
+
+
+			<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+			<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-url-parser/2.3.1/purl.js"></script>
+			<script>
+
+				$(function() {
+
+				// ここからプログラムを書きます
+
+					
+					var socket = io.connect("http://chikuwabuz2.herokuapp.com/");
+
+					var param = $.url();
+
+					var user_id = param.param("user_id");
+					var user_name = decodeURIComponent(param.param("user_name"));
+					var comm_id   = param.param("community");
+
+					socket.emit("new_user", {
+
+						user_name: user_name,
+						room: comm_id
+
+					});
+
+					socket.on("user_joined", function(user) {
+						$("#messages").append("<div id='msg'>システム:<span style='border-style: solid ; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>新しいユーザが参加しました！ " + user.user_name +"</span></div><br />").hide().show(1000);
+					});
+
+					socket.on("user_left", function(user) {
+						$("#messages").append("<div id='msg'>システム:<span style='border-style: solid ; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>ユーザ「" + user.user_name + "」が退室しました。 </span></div><br />").hide().show(1000);
+					});
+
+					socket.on("private_message", function(data) {
+							$("#messages").append("<div id='msg'>" + data.user_name + ":<span style='border-style: solid ; background: #40BAD2; color: #FFF; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>ユーザ" + user.message + "</span></div><br />").hide().show(1000);
+					});
+
+					socket.on("message", function(msg) {
+
+						console.log("message");
+
+						console.log(msg);
+						
+$("#messages").append("<div id='msg'>"+msg.user_name + ":<span style='border-style: solid ; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>" + msg.message +"</span></div><br />").hide().show(1000);
+
+					});
+
+					$("#test-button").click(function () {
+
+
+						socket.emit("message", {
+
+							room: comm_id,
+
+							message: $("#test-input").val(),
+
+							user_id: user_id,
+
+							user_name: user_name,
+
+							created_at: Date.now()
+	
+						});
+
+						$("#test-input").val("");
+
+					});
+
+					$("#test-button2").click(function () {
+
+						socket.emit("user_left", {
+							room: comm_id,
+							user_id: user_id,
+							user_name: user_name
+						});
+
+						window.location.href = "./index.html";
+					});
+
+					// ここまで
+
+				});
+
+
+			</script>
+
+
+		</article>
+
+
+	</body>
+
+
+</html>

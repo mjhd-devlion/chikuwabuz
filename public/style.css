@@ -1,0 +1,56 @@
+* {
+	margin:  0;
+	padding: 0;
+}
+
+header {
+	width: 100%;
+
+	color: #40BAD2;
+
+	border-bottom: 3px solid #40BAD2;
+}
+
+nav {
+
+}
+
+nav ul {
+	list-style: none;
+
+	margin: 0.1em;
+	padding: 0.5em;
+}
+
+nav ul:after {
+	content: " ";
+	display: block;
+
+	clear: both;
+}
+
+nav ul li {
+	float: left;
+
+	font-size: 1.2em;
+	font-weight: 800;
+
+	margin-right: 0.3em;
+
+	padding: 0.5em;
+
+	line-height: 1em;
+}
+
+nav li.logo {
+	background: #40BAD2;
+
+	color: #FFF;
+
+	border: 1px solid #AAA;
+}
+
+nav ul li a {
+	color: #40BAD2;
+	text-decoration: none;
+}

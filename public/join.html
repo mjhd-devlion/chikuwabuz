@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html>
+	<!-- ヘッダ : ページの情報を書く -->
+	<head>
+		<title>コミュニティ参加</title>
+		<meta charset="Shift-JIS">
+
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+
+	<!-- ボディ: 実際のページの内容を書く -->
+	<body>
+
+		<!-- 上のメニューバー -->
+		<header>
+			<nav>
+				<ul class="left">
+					<li class="logo">チクちゃ</li>
+					<li><a href="./index.html">ホーム</a></li>
+					<li><a href="./com_join.html">コミュニティ参加</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<article>
+
+			<!-- ここに各々書く -->
+			<div align="center">
+			<br>
+			<br>
+			<br>
+			
+			<div style="font-size:1.2em;font-weight:800; line-height:1em;color:#40BAD2;">
+			コミュニティ名：<span id="com_name">chiku</span>　　ホスト名：<span id="host_name">wabu</span></div><br>
+			<br>
+			
+			<div style="font-size:1.2em;font-weight:800; line-height:1em;color:#40BAD2;">
+				ニックネーム　<input id="name" type="text" name="nickname" size="30" maxlength="10"></div><br>
+			<br>
+
+			<button id="test-button"　type="button" style="height:40px;weight:120px;border:2px solid #40BAD2; background-color:#40BAD2;"><font style="font-size:1.2em;font-weight:800; line-height:1em; color:#FFFFFF;">
+			参加する</font></button></div>
+			
+			<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-url-parser/2.3.1/purl.js"></script>
+			<script>
+			function uuid() {
+				var uuid = "", i, random;
+				for (i = 0; i < 32; i++) {
+					random = Math.random() * 16 | 0;
+			
+					if (i == 8 || i == 12 || i == 16 || i == 20) {
+						uuid += "-"
+					}
+					uuid += (i == 12 ? 4 : (i == 16 ? (random & 3 | 8) : random)).toString(16);
+				}
+				return uuid;
+			}
+
+			$(function() {
+				// ここからプログラムを書きます
+
+				var param = $.url();
+
+				var _id   = param.param("community");
+
+				$("#com_name").text(decodeURIComponent(param.param("community_name")));
+				$("#host_name").text(decodeURIComponent(param.param("host_name")));
+
+				$("#test-button").click(function () {
+					var user_name = $("#name").val();
+					var user_id = uuid();
+					$.post({
+						url:"http://chikuwabuz2.herokuapp.com/community/join",
+						data:{
+							_id: _id,
+							username: user_name,
+							password: ""
+						},
+						success: function(data) {
+							location.href = "./chat.html?user_id=" + user_id +"&user_name=" + encodeURIComponent(user_name) + "&community=" + _id;
+						}
+					});
+
+				});
+
+				// ここまで
+			});
+
+		</script>
+		</article>
+
+	</body>
+</html>
