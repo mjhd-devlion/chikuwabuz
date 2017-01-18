@@ -38,11 +38,11 @@ module.exports = function(io){
 
 		})
 
-		socket.on("disconnect", function(data) {
+		/*socket.on("disconnect", function(data) {
 			var user_sock = connectedUsers[connectedUsers.indexOf(socket)]
 			io.in(user_sock.room).emit("user_left", {user_name: user_sock.user_name})
 			delete connectedUsers[connectedUsers.indexOf(socket)]
-		})
+		})*/
 
 	})
 	
