@@ -6,6 +6,7 @@ module.exports = function(io){
 		// Listens for new user
 		socket.on("new_user", function(data){
 			// Add each socket to list (for private message)
+			socket.user_name = data.user_name
 			connectedUsers[data.user_name] = socket
 
 			var room = data.room
@@ -32,8 +33,14 @@ module.exports = function(io){
 		// Listens for Private message (Client should send destination user_name)
 		socket.on("private_message", function(data){
 			// Server will emit the message to destination user
-			connectedUsers[des_user_name].emit("private_message", data)
+			connectedUsers[data.des_user_name].emit("private_message", data)
 
+		})
+
+		socket.on("disconnect", function(data) {
+			var user_sock = connectedUsers[connectedUsers.indexOf(socket)]
+			io.in(data.room).emit("user_left", user_sock.user_name)
+			delete connectedUsers[connectedUsers.indexOf(socket)]
 		})
 
 	})
