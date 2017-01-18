@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="Shift_JIS">
-		<title>ƒz[ƒ€</title>
+		<meta charset="UTF-8">
+		<title>ãƒ›ãƒ¼ãƒ </title>
 		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 
-	<!-- ƒ{ƒfƒB: ÀÛ‚Ìƒy[ƒW‚Ì“à—e‚ğ‘‚­ -->
+	<!-- ãƒœãƒ‡ã‚£: å®Ÿéš›ã®ãƒšãƒ¼ã‚¸ã®å†…å®¹ã‚’æ›¸ã -->
 	<body>
-		<!-- ã‚Ìƒƒjƒ…[ƒo[ -->
+		<!-- ä¸Šã®ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãƒãƒ¼ -->
 		<header>
 			<nav>
 				<ul class="left">
-					<li class="logo">ƒ`ƒN‚¿‚á</li>
-					<li id="test-button">ƒz[ƒ€</li>
+					<li class="logo">ãƒã‚¯ã¡ã‚ƒ</li>
+					<li id="test-button">ãƒ›ãƒ¼ãƒ </li>
 				</ul>
 			</nav>
 		</header>
@@ -22,8 +22,8 @@
 		<div class="blocka" align="center">
 			<table border="0">
 				<tr bgcolor="#40BAD2">
-					<th width="150" height="50"><font color="#FFFFFF">ƒRƒ~ƒ…ƒjƒeƒB–¼</font></th>
-					<th width="150"  height="50"><font color="#FFFFFF">ƒzƒXƒg–¼</font></th>
+					<th width="150" height="50"><font color="#FFFFFF">ã‚³ãƒŸãƒ¥ãƒ‹ãƒ†ã‚£å</font></th>
+					<th width="150"  height="50"><font color="#FFFFFF">ãƒ›ã‚¹ãƒˆå</font></th>
 				</tr>
 			</table>
 			<table border="0">
@@ -34,25 +34,25 @@
 			<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 			<script>
 			$(function() {
-				// ‚±‚±‚©‚çƒvƒƒOƒ‰ƒ€‚ğ‘‚«‚Ü‚·
+				// ã“ã“ã‹ã‚‰ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚’æ›¸ãã¾ã™
 		
 				var count=0;
 
-				// ƒ{ƒ^ƒ“‚ğƒNƒŠƒbƒN‚µ‚½‚Æ‚«
+				// ãƒœã‚¿ãƒ³ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ãŸã¨ã
 				$("#test-button").click(function () {
 				
 					count+=10;
-		 			// ƒT[ƒo‚Æ’ÊM‚·‚é
+		 			// ã‚µãƒ¼ãƒã¨é€šä¿¡ã™ã‚‹
 		 			$.get({
-						url: "http://chikuwabuz2.herokuapp.com/community/list/name/"+count, // Ú‘±æ
+						url: "http://chikuwabuz2.herokuapp.com/community/list/name/"+count, // æ¥ç¶šå…ˆ
 			
-						// ’ÊM‚ªŠ®—¹‚µ‚½‚Æ‚«
+						// é€šä¿¡ãŒå®Œäº†ã—ãŸã¨ã
 						success: function(data) {
 
 							$("#test-text").text("");
 							//$("#test-text2").text("");
 
-							// ƒRƒ~ƒ…ƒjƒeƒB‚ğ1‚Â‚¸‚Â•\¦‚·‚é
+							// ã‚³ãƒŸãƒ¥ãƒ‹ãƒ†ã‚£ã‚’1ã¤ãšã¤è¡¨ç¤ºã™ã‚‹
 							for (var i = 0; i < data.length; i++) {
 					
 								if(i % 2== 0){
@@ -70,22 +70,22 @@
 					});
 	 			});
 
-				 // ‚±‚±‚Ü‚Å
+				 // ã“ã“ã¾ã§
 	 		 });
 			 </script>
 		</div>
 
 		<div class="blockb" align="center">
-		<img src="‚¿‚­‚í‚Ô2.png" title="‚¿‚­‚í‚Ô‚æ‚è•’Ê‚É‘åª‚ªD‚«``"><br>
-		<input  type="button" style="color:#FFFFFF; background-color:#40BAD2; width:200px; height:50px" onclick="location.href='./make.html'" value="ƒRƒ~ƒ…ƒjƒeƒBì¬">
+		<img src="ã¡ãã‚ã¶2.png" title="ã¡ãã‚ã¶ã‚ˆã‚Šæ™®é€šã«å¤§æ ¹ãŒå¥½ãï½ï½"><br>
+		<input  type="button" style="color:#FFFFFF; background-color:#40BAD2; width:200px; height:50px" onclick="location.href='./make.html'" value="ã‚³ãƒŸãƒ¥ãƒ‹ãƒ†ã‚£ä½œæˆ">
 
 		</div>
 
 		<div class="blockc" align="center">
 		<table border="0">
 	 		<tr bgcolor="#40BAD2">
-				<th width="150" height="50"><font color="#FFFFFF">ƒRƒ~ƒ…ƒjƒeƒB–¼</font></th>
-				<th width="150"  height="50"><font color="#FFFFFF">ƒzƒXƒg–¼</font></th>
+				<th width="150" height="50"><font color="#FFFFFF">ã‚³ãƒŸãƒ¥ãƒ‹ãƒ†ã‚£å</font></th>
+				<th width="150"  height="50"><font color="#FFFFFF">ãƒ›ã‚¹ãƒˆå</font></th>
 			</tr>
 		</table>
 		<table border="0">
@@ -96,23 +96,23 @@
 			<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 			<script>
 	 		 $(function() {
-				// ‚±‚±‚©‚çƒvƒƒOƒ‰ƒ€‚ğ‘‚«‚Ü‚·
+				// ã“ã“ã‹ã‚‰ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚’æ›¸ãã¾ã™
 
 				var count2 = 0;	
-				 // ƒ{ƒ^ƒ“‚ğƒNƒŠƒbƒN‚µ‚½‚Æ‚«
+				 // ãƒœã‚¿ãƒ³ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ãŸã¨ã
 				$("#test-button").click(function () {
 
 					count2+=10;
-					// ƒT[ƒo‚Æ’ÊM‚·‚é
+					// ã‚µãƒ¼ãƒã¨é€šä¿¡ã™ã‚‹
 					$.get({
-						 url: "http://chikuwabuz.herokuapp.com/community/list/created_at/"+count2, // Ú‘±æ
+						 url: "http://chikuwabuz.herokuapp.com/community/list/created_at/"+count2, // æ¥ç¶šå…ˆ
 			
-						// ’ÊM‚ªŠ®—¹‚µ‚½‚Æ‚«
+						// é€šä¿¡ãŒå®Œäº†ã—ãŸã¨ã
 						success: function(data) {
 
 							$("#test-text2").text("");
 			
-							// ƒRƒ~ƒ…ƒjƒeƒB‚ğ1‚Â‚¸‚Â•\¦‚·‚é
+							// ã‚³ãƒŸãƒ¥ãƒ‹ãƒ†ã‚£ã‚’1ã¤ãšã¤è¡¨ç¤ºã™ã‚‹
 							for (var i = 0; i < data.length; i++) {
 			
 								if(i % 2== 0){
@@ -131,7 +131,7 @@
 					});
 				});
 
-				 // ‚±‚±‚Ü‚Å
+				 // ã“ã“ã¾ã§
 				$("#test-button").trigger("click");
 			});
 			</script>

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="Shift_JIS">
-		<title>ƒ^ƒCƒgƒ‹</title>
+		<meta charset="UTF-8">
+		<title>ã‚¿ã‚¤ãƒˆãƒ«</title>
 
 		<link rel="stylesheet" type="text/css" href="style.css">
 	<style>
@@ -21,21 +21,21 @@
 
 
 
-	<!-- ƒ{ƒfƒB: ÀÛ‚Ìƒy[ƒW‚Ì“à—e‚ğ‘‚­ -->
+	<!-- ãƒœãƒ‡ã‚£: å®Ÿéš›ã®ãƒšãƒ¼ã‚¸ã®å†…å®¹ã‚’æ›¸ã -->
 
 	<body>
 
 
-		<!-- ã‚Ìƒƒjƒ…[ƒo[ -->
+		<!-- ä¸Šã®ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãƒãƒ¼ -->
 		<header>
 
 			<nav>
 
 				<ul class="left">
 
-					<li class="logo">ƒ`ƒN‚¿‚á</li>
+					<li class="logo">ãƒã‚¯ã¡ã‚ƒ</li>
 
-					<li><a href="./index.html">ƒz[ƒ€</a></li>
+					<li><a href="./index.html">ãƒ›ãƒ¼ãƒ </a></li>
 
 				</ul>
 
@@ -54,9 +54,9 @@
 
 			<div class="box" align="center">
 				<textarea  id="test-input"></textarea>
-				<button id="test-button"@type="button" style="height:40px;weight:120px;border:2px solid #40BAD2; background-color:#40BAD2;"><font style="font-size:1.2em;font-weight:800; line-height:1em; color:#FFFFFF;">‘‚«‚Ş</font></button>
+				<button id="test-button"ã€€type="button" style="height:40px;weight:120px;border:2px solid #40BAD2; background-color:#40BAD2;"><font style="font-size:1.2em;font-weight:800; line-height:1em; color:#FFFFFF;">æ›¸ãè¾¼ã‚€</font></button>
 
-				<button id="test-button2"@type="button" style="height:40px;weight:120px;border:2px solid #40BAD2; background-color:#40BAD2;"><font style="font-size:1.2em;font-weight:800; line-height:1em; color:#FFFFFF;">‘Şo‚·‚é</font></button><br>
+				<button id="test-button2"ã€€type="button" style="height:40px;weight:120px;border:2px solid #40BAD2; background-color:#40BAD2;"><font style="font-size:1.2em;font-weight:800; line-height:1em; color:#FFFFFF;">é€€å‡ºã™ã‚‹</font></button><br>
 			</div>
 <style type="text/css">
 article {
@@ -71,7 +71,7 @@ div.box{
 border-top: 3px solid #40BAD2;
 background-color:#FFFFFF;
 position: fixed;
-    bottom:0px; /* ‰º:0px */
+    bottom:0px; /* ä¸‹:0px */
     right:0px;
     left:0px;
 padding: 10px;
@@ -95,7 +95,7 @@ height: 250px;
 
 				$(function() {
 
-				// ‚±‚±‚©‚çƒvƒƒOƒ‰ƒ€‚ğ‘‚«‚Ü‚·
+				// ã“ã“ã‹ã‚‰ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚’æ›¸ãã¾ã™
 
 					
 					var socket = io.connect("http://chikuwabuz2.herokuapp.com/");
@@ -114,15 +114,15 @@ height: 250px;
 					});
 
 					socket.on("user_joined", function(user) {
-						$("#messages").append("<div id='msg'>ƒVƒXƒeƒ€:<span style='border-style: solid ; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>V‚µ‚¢ƒ†[ƒU‚ªQ‰Á‚µ‚Ü‚µ‚½I " + user.user_name +"</span></div><br />").hide().show(1000);
+						$("#messages").append("<div id='msg'>ã‚·ã‚¹ãƒ†ãƒ :<span style='border-style: solid ; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>æ–°ã—ã„ãƒ¦ãƒ¼ã‚¶ãŒå‚åŠ ã—ã¾ã—ãŸï¼ " + user.user_name +"</span></div><br />").hide().show(1000);
 					});
 
 					socket.on("user_left", function(user) {
-						$("#messages").append("<div id='msg'>ƒVƒXƒeƒ€:<span style='border-style: solid ; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>ƒ†[ƒUu" + user.user_name + "v‚ª‘Şº‚µ‚Ü‚µ‚½B </span></div><br />").hide().show(1000);
+						$("#messages").append("<div id='msg'>ã‚·ã‚¹ãƒ†ãƒ :<span style='border-style: solid ; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>ãƒ¦ãƒ¼ã‚¶ã€Œ" + user.user_name + "ã€ãŒé€€å®¤ã—ã¾ã—ãŸã€‚ </span></div><br />").hide().show(1000);
 					});
 
 					socket.on("private_message", function(data) {
-							$("#messages").append("<div id='msg'>" + data.user_name + ":<span style='border-style: solid ; background: #40BAD2; color: #FFF; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>ƒ†[ƒU" + user.message + "</span></div><br />").hide().show(1000);
+							$("#messages").append("<div id='msg'>" + data.user_name + ":<span style='border-style: solid ; background: #40BAD2; color: #FFF; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>ãƒ¦ãƒ¼ã‚¶" + user.message + "</span></div><br />").hide().show(1000);
 					});
 
 					socket.on("message", function(msg) {
@@ -167,7 +167,7 @@ $("#messages").append("<div id='msg'>"+msg.user_name + ":<span style='border-sty
 						window.location.href = "./index.html";
 					});
 
-					// ‚±‚±‚Ü‚Å
+					// ã“ã“ã¾ã§
 
 				});
 
