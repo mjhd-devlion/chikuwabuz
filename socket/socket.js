@@ -7,6 +7,7 @@ module.exports = function(io){
 		socket.on("new_user", function(data){
 			// Add each socket to list (for private message)
 			socket.user_name = data.user_name
+			socket.room      = data.room
 			connectedUsers[data.user_name] = socket
 
 			var room = data.room
@@ -39,7 +40,7 @@ module.exports = function(io){
 
 		socket.on("disconnect", function(data) {
 			var user_sock = connectedUsers[connectedUsers.indexOf(socket)]
-			io.in(data.room).emit("user_left", user_sock.user_name)
+			io.in(user_sock.room).emit("user_left", {user_name: user_sock.user_name})
 			delete connectedUsers[connectedUsers.indexOf(socket)]
 		})
 
