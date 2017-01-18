@@ -22,8 +22,6 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(express.static("public"))
-
 mongoose.Promise = global.Promise
 
 // mongoose.connect("mongodb://localhost/snsDB")
@@ -35,9 +33,7 @@ require("./socket/socket.js")(io)
 
 
 //***********************
-app.get("/", function(req, res){
-	res.sendFile(__dirname + "/socket/socket_test.html")
-})
+app.use(express.static(__dirname + "/public"))
 
 // ホーム GET
 app.get("/community/list/:sort_by/:limit", controller.getCommunities)
