@@ -22,6 +22,8 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use(express.static("public"))
+
 mongoose.Promise = global.Promise
 
 // mongoose.connect("mongodb://localhost/snsDB")
