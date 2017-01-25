@@ -9,6 +9,9 @@
 		#msg {
 			margin-bottom: 20px;
 		}
+		.msg {
+		    background: #FFF;
+		}
 		#messages {
 			margin-top: 15px;
 		}
@@ -48,7 +51,7 @@
 
 			
 	
-		<div id='msg' class="msg">システム:<span style='border-style: solid ; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '></div>
+		<div id='msg' class="msg"><span style='border-style: solid ; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '></div>
 		<div id="messages"></div>
 
 
@@ -119,7 +122,7 @@ height: 250px;
 					// 他のユーザが参加したとき
 					socket.on("user_joined", function(user) {
 						var msgh = $("#msg");
-						msgh.html("システム:<span style='border-style: solid ; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>新しいユーザが参加しました！ " + user.user_name +"</span>");
+						msgh.html("<span style='border-style: solid ; box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.1); background: #FFFFFF; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>システム:新しいユーザが参加しました！ " + user.user_name +"</span>");
 						msgh.css({
 							"position": "absolute",
 							left: Math.random() * $(window).width(),
@@ -127,14 +130,14 @@ height: 250px;
 							opacity: 1.0
 						});			
 						
-						$(".msg").animate({opacity: "-=0.1"}, 1000);	
+						$(".msg").animate({opacity: "-=0.01"}, 1000);	
 						$("#messages").append(msgh.clone().show(1000));
 					});
 
 					// ユーザが退室したとき
 					socket.on("user_left", function(user) {
 						var msgh = $("#msg");
-						msgh.html("システム:<span style='border-style: solid ; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>ユーザ「" + user.user_name + "」が退室しました。 </span>");
+						msgh.html("<span style='border-style: solid ; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);  background: #FFFFFF;border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>システム:ユーザ「" + user.user_name + "」が退室しました。 </span>");
 						msgh.css({
 							position: "absolute",
 							left: Math.random() * $(window).width(),
@@ -142,14 +145,14 @@ height: 250px;
 							opacity: 1.0
 						});			
 						
-						$(".msg").animate({opacity: "-=0.1"}, 1000);	
+						$(".msg").animate({opacity: "-=0.01"}, 1000);	
 						$("#messages").append(msgh.clone().show(1000));
 					});
 
 					// プライベートメッセージを受信したとき
 					socket.on("private_message", function(data) {
 						var msgh = $("#msg");
-						msgh.html(data.user_name + ":<span style='border-style: solid ; background: #40BAD2; color: #FFF; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>ユーザ" + user.message + "</span>");
+						msgh.html("<span style='border-style: solid ;box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);  background: #40BAD2; color: #FFF; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>" + data.user_name + ":ユーザ" + user.message + "</span>");
 						msgh.css({
 							position: "absolute",
 							left: Math.random() * $(window).width(),
@@ -157,7 +160,7 @@ height: 250px;
 							opacity: 1.0
 						});			
 						
-						$(".msg").animate({opacity: "-=0.1"}, 1000);
+						$(".msg").animate({opacity: "-=0.01"}, 1000);
 						$("#messages").append(msgh.clone().show(1000));
 					});
 
@@ -168,7 +171,7 @@ height: 250px;
 
 						console.log(msg);
 						var msgh = $("#msg");
-						msgh.html(msg.user_name + ":<span style='border-style: solid ; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>" + msg.message +"</span>");
+						msgh.html("<span style='border-style: solid ; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);  background: #FFFFFF; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>"+ msg.user_name + ":" + msg.message +"</span>");
 						msgh.css({
 							position: "absolute",
 							left: Math.random() * $(window).width(),
@@ -176,7 +179,7 @@ height: 250px;
 							opacity: 1.0
 						});			
 						
-						$(".msg").animate({opacity: "-=0.1"}, 1000);
+						$(".msg").animate({opacity: "-=0.01"}, 1000);
 						$("#messages").append(msgh.clone().show(1000));
 
 					});
