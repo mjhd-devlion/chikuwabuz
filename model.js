@@ -12,7 +12,7 @@ var communitySchema = Schema({
 	host_id: {type: String, select: true},
 	// set password to not queryable (without select)
 	password: {type: String, required: true, trim: true, select: false},
-	protected: {type: Bool, required: true, default: false, select: true},
+	protected: {type: Boolean, required: true, default: false, select: true},
 	created_at: {type: Date, default: Date.now},
 	messages: [{type: Schema.Types.ObjectId, ref:"Message"}]
 })
