@@ -42,8 +42,8 @@ socket.on("new_user", function(data){
 
 		socket.on("disconnect", function(data) {
 			io.in(userDetails[socket].room).emit("user_left", userDetails[socket])
-			delete connectedUsers[userDetails[socket].user_name]
-			delete userDetails[socket]
+			/*delete connectedUsers[userDetails[socket].user_name]
+			delete userDetails[socket]*/
 		})
 
 	})
