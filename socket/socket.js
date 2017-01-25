@@ -2,7 +2,7 @@ module.exports = function(io){
 	io.on("connection", function(socket){
 
 		var connectedUsers = {}
-		var userDetails = {}
+		//var userDetails = {}
 		
 		// Listens for new user		
 socket.on("new_user", function(data){
@@ -12,7 +12,7 @@ socket.on("new_user", function(data){
 			connectedUsers[data.user_name] = socket
 
 			var room = data.room
-			userDetails[socket] = data
+			//userDetails[socket] = data
 			// New user joins the room that they has choosed (clicked)
 			socket.join(room)
 			// Tell all those in the room that a new user joined
@@ -40,11 +40,11 @@ socket.on("new_user", function(data){
 
 		})
 
-		socket.on("disconnect", function(data) {
-			io.in(userDetails[socket].room).emit("user_left", userDetails[socket])
+		//socket.on("disconnect", function(data) {
+		//	io.in(userDetails[socket].room).emit("user_left", userDetails[socket])
 			/*delete connectedUsers[userDetails[socket].user_name]
 			delete userDetails[socket]*/
-		})
+		//})
 
 	})
 	
