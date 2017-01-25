@@ -23,7 +23,8 @@ exports.createCommunity = function(req, res){
 			name: name,
 			host_name: host_name,
 			host_id: host_id,
-			password: hash
+			password: hash,
+			protected: (password != "")
 		})
 
 		newCommunity.save(function(err, community){
