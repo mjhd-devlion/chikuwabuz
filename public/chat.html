@@ -48,6 +48,7 @@
 
 			
 	
+		<div id='msg' class="msg">システム:<span style='border-style: solid ; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '></div>
 		<div id="messages"></div>
 
 
@@ -112,20 +113,52 @@ height: 250px;
 						room: comm_id
 
 					});
+					
+					$("#msg").hide();
 
 					// 他のユーザが参加したとき
 					socket.on("user_joined", function(user) {
-						$("#messages").append("<div id='msg'>システム:<span style='border-style: solid ; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>新しいユーザが参加しました！ " + user.user_name +"</span></div><br />").hide().show(1000);
+						var msgh = $("#msg");
+						msgh.html("システム:<span style='border-style: solid ; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>新しいユーザが参加しました！ " + user.user_name +"</span>");
+						msgh.css({
+							"position": "absolute",
+							left: Math.random() * $(window).width(),
+							top: Math.random() * ($(window).height() - 300),
+							opacity: 1.0
+						});			
+						
+						$(".msg").animate({opacity: "-=0.1"}, 1000);	
+						$("#messages").append(msgh.clone().show(1000));
 					});
 
 					// ユーザが退室したとき
 					socket.on("user_left", function(user) {
-						$("#messages").append("<div id='msg'>システム:<span style='border-style: solid ; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>ユーザ「" + user.user_name + "」が退室しました。 </span></div><br />").hide().show(1000);
+						var msgh = $("#msg");
+						msgh.html("システム:<span style='border-style: solid ; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>ユーザ「" + user.user_name + "」が退室しました。 </span>");
+						msgh.css({
+							position: "absolute",
+							left: Math.random() * $(window).width(),
+							top: Math.random() * ($(window).height() - 300),
+							opacity: 1.0
+						});			
+						
+						$(".msg").animate({opacity: "-=0.1"}, 1000);	
+						$("#messages").append(msgh.clone().show(1000));
 					});
 
 					// プライベートメッセージを受信したとき
 					socket.on("private_message", function(data) {
-							$("#messages").append("<div id='msg'>" + data.user_name + ":<span style='border-style: solid ; background: #40BAD2; color: #FFF; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>ユーザ" + user.message + "</span></div><br />").hide().show(1000);
+						var msgh = $("#msg");
+						msgh.html(data.user_name + ":<span style='border-style: solid ; background: #40BAD2; color: #FFF; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>ユーザ" + user.message + "</span>");
+						msgh.css({
+							position: "absolute",
+							left: Math.random() * $(window).width(),
+							top: Math.random() * ($(window).height() - 300),
+							opacity: 1.0
+						});			
+						
+						$(".msg").animate({opacity: "-=0.1"}, 1000);
+						$("#messages").append(msgh.clone().show(1000));
 					});
 
 					// メッセージを受信したとき
@@ -134,8 +167,17 @@ height: 250px;
 						console.log("message");
 
 						console.log(msg);
+						var msgh = $("#msg");
+						msgh.html(msg.user_name + ":<span style='border-style: solid ; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>" + msg.message +"</span>");
+						msgh.css({
+							position: "absolute",
+							left: Math.random() * $(window).width(),
+							top: Math.random() * ($(window).height() - 300),
+							opacity: 1.0
+						});			
 						
-$("#messages").append("<div id='msg'>"+msg.user_name + ":<span style='border-style: solid ; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>" + msg.message +"</span></div><br />").hide().show(1000);
+						$(".msg").animate({opacity: "-=0.1"}, 1000);
+						$("#messages").append(msgh.clone().show(1000));
 
 					});
 
