@@ -2,15 +2,17 @@ module.exports = function(io){
 	io.on("connection", function(socket){
 
 		var connectedUsers = {}
+		var userDetails = {}
 		
-		// Listens for new user
-		socket.on("new_user", function(data){
+		// Listens for new user		
+socket.on("new_user", function(data){
 			// Add each socket to list (for private message)
 			socket.user_name = data.user_name
 			socket.room      = data.room
 			connectedUsers[data.user_name] = socket
 
 			var room = data.room
+			userDetails[socket] = data
 			// New user joins the room that they has choosed (clicked)
 			socket.join(room)
 			// Tell all those in the room that a new user joined
@@ -38,11 +40,11 @@ module.exports = function(io){
 
 		})
 
-		/*socket.on("disconnect", function(data) {
-			var user_sock = connectedUsers[connectedUsers.indexOf(socket)]
-			io.in(user_sock.room).emit("user_left", {user_name: user_sock.user_name})
-			delete connectedUsers[connectedUsers.indexOf(socket)]
-		})*/
+		socket.on("disconnect", function(data) {
+			io.in(userDetails[socket].room).emit("user_left", userDetails[socket])
+			delete connectedUsers[userDetails[socket].user_name]
+			delete userDetails[socket]
+		})
 
 	})
 	
