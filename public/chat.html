@@ -122,7 +122,7 @@ height: 250px;
 					// 他のユーザが参加したとき
 					socket.on("user_joined", function(user) {
 						var msgh = $("#msg");
-						msgh.html("<span style='border-style: solid ; box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.1); background: #FFFFFF; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>システム:新しいユーザが参加しました！ " + user.user_name +"</span>");
+						msgh.html("<span style='border-style: solid ; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1); background: #FFFFFF; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>システム:新しいユーザが参加しました！ " + user.user_name +"</span>");
 						msgh.css({
 							"position": "absolute",
 							left: Math.random() * $(window).width(),
