@@ -1,43 +1,52 @@
 <!DOCTYPE html>
 <html>
+	<!-- ƒwƒbƒ_ : ƒy[ƒW‚Ìî•ñ‚ğ‘‚­ -->
 	<head>
 		<meta charset="UTF-8">
-		<title>ã‚³ãƒŸãƒ¥ãƒ‹ãƒ†ã‚£å‚åŠ </title>
+		<title>ƒRƒ~ƒ…ƒjƒeƒBQ‰Á</title>
+
 		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 
-	<!-- ãƒœãƒ‡ã‚£: å®Ÿéš›ã®ãƒšãƒ¼ã‚¸ã®å†…å®¹ã‚’æ›¸ã -->
+	<!-- ƒ{ƒfƒB: ÀÛ‚Ìƒy[ƒW‚Ì“à—e‚ğ‘‚­ -->
 	<body>
 
-		<!-- ä¸Šã®ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãƒãƒ¼ -->
+		<!-- ã‚Ìƒƒjƒ…[ƒo[ -->
 		<header>
 			<nav>
 				<ul class="left">
-					<li class="logo">ãƒã‚¯ã¡ã‚ƒ</li>
-					<li><a href="./index.html">ãƒ›ãƒ¼ãƒ </a></li>
-					<li><a href="./com_join.html">ã‚³ãƒŸãƒ¥ãƒ‹ãƒ†ã‚£å‚åŠ </a></li>
+					<li class="logo" onclick="location.href='https://ja.wikipedia.org/wiki/%E3%81%A1%E3%81%8F%E3%82%8F%E3%81%B6'">ƒ`ƒN‚¿‚á</a></li>
+					<li><a href="./index.html">ƒz[ƒ€</a></li>
+					<li><a href="./join.html">ƒRƒ~ƒ…ƒjƒeƒBQ‰Á</a></li>
 				</ul>
 			</nav>
 		</header>
 
 		<article>
 
-			<!-- ã“ã“ã«å„ã€…æ›¸ã -->
+			<!-- ‚±‚±‚ÉŠeX‘‚­ -->
 			<div align="center">
 			<br>
 			<br>
 			<br>
 			
 			<div style="font-size:1.2em;font-weight:800; line-height:1em;color:#40BAD2;">
-			ã‚³ãƒŸãƒ¥ãƒ‹ãƒ†ã‚£åï¼š<span id="com_name">chiku</span>ã€€ã€€ãƒ›ã‚¹ãƒˆåï¼š<span id="host_name">wabu</span></div><br>
+			ƒRƒ~ƒ…ƒjƒeƒB–¼F<span id="com_name">chiku</span>@@ƒzƒXƒg–¼F<span id="host_name">wabu</span></div><br>
 			<br>
 			
 			<div style="font-size:1.2em;font-weight:800; line-height:1em;color:#40BAD2;">
-				ãƒ‹ãƒƒã‚¯ãƒãƒ¼ãƒ ã€€<input id="name" type="text" name="nickname" size="30" maxlength="10"></div><br>
+				ƒjƒbƒNƒl[ƒ€@<input id="name" type="text" name="nickname" size="30" maxlength="10"></div><br>
 			<br>
 
-			<button id="test-button"ã€€type="button" style="height:40px;weight:120px;border:2px solid #40BAD2; background-color:#40BAD2;"><font style="font-size:1.2em;font-weight:800; line-height:1em; color:#FFFFFF;">
-			å‚åŠ ã™ã‚‹</font></button></div>
+
+			<div style="font-size:1.2em;font-weight:800; line-height:1em;color:#40BAD2;">
+				ƒpƒXƒ[ƒh@<input id="password" type="text" name="password" size="30" maxlength="10"></div><br>
+			<br>
+
+			<div style="font-size:1.2em;font-weight:800; line-height:1em;color:#40BAD2;" id="error"> </div><br>
+
+			<button id="test-button"@type="button" style="height:40px;weight:120px;background-color:#40BAD2;"><font style="font-size:1.2em;font-weight:800; line-height:1em; color:#FFFFFF;">
+			Q‰Á‚·‚é</font></button></div>
 			
 			<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-url-parser/2.3.1/purl.js"></script>
@@ -56,7 +65,7 @@
 			}
 
 			$(function() {
-				// ã“ã“ã‹ã‚‰ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚’æ›¸ãã¾ã™
+				// ‚±‚±‚©‚çƒvƒƒOƒ‰ƒ€‚ğ‘‚«‚Ü‚·
 
 				var param = $.url();
 
@@ -68,21 +77,25 @@
 				$("#test-button").click(function () {
 					var user_name = $("#name").val();
 					var user_id = uuid();
+					var password = $("#password").val();
 					$.post({
 						url:"http://chikuwabuz2.herokuapp.com/community/join",
 						data:{
 							_id: _id,
 							username: user_name,
-							password: ""
+							password: password
 						},
 						success: function(data) {
-							location.href = "./chat.html?user_id=" + user_id +"&user_name=" + encodeURIComponent(user_name) + "&community=" + _id;
-						}
+							location.href = "./chat.html?user_id=" + user_id +"&user_name=" + encodeURIComponent(user_name) + "&community=" + _id + "&name="+ decodeURIComponent(param.param("community_name"));
+						},
+						error: function(fail) {
+								var txt = "fail";
+								document.getElementById("error").innerHTML=fail.responseText;}
 					});
 
 				});
 
-				// ã“ã“ã¾ã§
+				// ‚±‚±‚Ü‚Å
 			});
 
 		</script>

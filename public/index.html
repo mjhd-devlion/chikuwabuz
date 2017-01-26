@@ -39,7 +39,7 @@
 				var count=0;
 
 				// ボタンをクリックしたとき
-				$("#test-button").click(function () {
+				$("#test-button3,#test-button").click(function () {
 				
 					count+=10;
 		 			// サーバと通信する
@@ -56,13 +56,13 @@
 							for (var i = 0; i < data.length; i++) {
 					
 								if(i % 2== 0){
-									$("#test-text").append("<tr bgcolor='#ADD8E6'><td width='150'><font color='#5F9EA0'><a href='./join.html?community=" + data[i]["_id"] + "&host_name=" + encodeURIComponent(data[i].host_name) + "&community_name=" + encodeURIComponent(data[i].name) + "'>" + data[i].name + "</font></td>,"+ 
+									$("#test-text").append("<tr bgcolor='#ADD8E6'><td width='150'><font color='#5F9EA0'><a href='./join.html?community=" + data[i]["_id"] + "&host_name=" + encodeURIComponent(data[i].host_name) + "&community_name=" + encodeURIComponent(data[i].name) + "'>" + data[i].name + (data[i].protected?"&#128274;":" ") + "</font></td>,"+ 
 														"<td width='150'><font color='#5F9EA0'>" + data[i].host_name + "</font></td></tr>");
 								}
 
 								else{
 
-								$("#test-text").append("<tr bgcolor='#F0F8FF'><td width='150'><font color='#5F9EA0'><a href='./join.html?community=" + data[i]["_id"] + "&host_name=" + encodeURIComponent(data[i].host_name) + "&community_name=" + encodeURIComponent(data[i].name) + "'>" + data[i].name + "</font></td>,"+ 
+								$("#test-text").append("<tr bgcolor='#F0F8FF'><td width='150'><font color='#5F9EA0'><a href='./join.html?community=" + data[i]["_id"] + "&host_name=" + encodeURIComponent(data[i].host_name) + "&community_name=" + encodeURIComponent(data[i].name) + "'>" + data[i].name + (data[i].protected?"&#128274;":" ") + "</font></td>,"+ 
 														"<td width='150'><font color='#5F9EA0'>" + data[i].host_name + "</font></td></tr>");
 								}
 							}
@@ -76,8 +76,10 @@
 		</div>
 
 		<div class="blockb" align="center">
-		<img src="ちくわぶ2.png" title="ちくわぶより普通に大根が好き～～"><br>
-		<input  type="button" style="color:#FFFFFF; background-color:#40BAD2; width:200px; height:50px" onclick="location.href='./make.html'" value="コミュニティ作成">
+		
+		<img id=chikuwabu src="ちくわぶ2.png" onclick="document.getElementById('chikuwabu').src='大根.png'" title="ちくわぶより普通に大根が好き～～"><br>
+		
+		<button id="button" type="button" style="height:40px;weight:120px; background-color:#40BAD2;" onclick="location.href='./make.html'"><font style="font-size:1.2em;font-weight:800; line-height:1em; color:#FFFFFF;">　コミュニティ作成　</font></button>
 
 		</div>
 
@@ -92,15 +94,64 @@
 				<tbody id="test-text2">
 				</tbody>
 		</table>
+		<br>
+		<div id="test-button3" align="left" style="height:40px;weight:120px;"><font style="font-size:1.2em;font-weight:800; line-height:1em; color:#40BAD2;">　　さらに表示</font></div>
 		
 			<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 			<script>
+
 	 		 $(function() {
 				// ここからプログラムを書きます
+	var input = [];
+	konami = [38,38,40,40,37,39,37,39,66,65];
+	onami = [38,38,40,40,37,39,37,39,65,66];
+	sonami = [38,38,40,40,37,39,37,39,65,67];
+
+	$(window).keyup(function(e){
+		input.push(e.keyCode);
+
+		if (input.toString().indexOf(konami) >= 0)
+		{
+			$("img").animate({zIndex: 1}, {
+			duration: 3000,
+			step: function(now) {
+				$(this).css({transform:'rotate(' + (now * 1080) + 'deg)'});
+			},
+			complete: function() {
+					$("img").css({zIndex: 0});
+			}});
+			input = [];
+		}
+		if (input.toString().indexOf(onami) >= 0)
+		{
+			$("img").animate({zIndex: 1}, {
+				duration: 3000,
+				step: function(now) {
+					$(this).css({transform:'rotate(' + (now * -1080) + 'deg)'});
+				},
+				complete: function() {
+						$("img").css({zIndex: 0});
+				}});
+			input = [];
+		}
+		if (input.toString().indexOf(sonami) >= 0)
+		{
+			$("img").animate({zIndex: 1}, {
+				duration: 100000,
+				step: function(now) {
+					$(this).css({transform:'rotate(' + (now * 10800000) + 'deg)'});
+				},
+				complete: function() {
+						$("img").css({zIndex: 0});
+				}});
+			input = [];
+		}
+	});
+
 
 				var count2 = 0;	
 				 // ボタンをクリックしたとき
-				$("#test-button").click(function () {
+				$("#test-button3,#test-button").click(function (){
 
 					count2+=10;
 					// サーバと通信する
@@ -116,16 +167,17 @@
 							for (var i = 0; i < data.length; i++) {
 			
 								if(i % 2== 0){
-									$("#test-text2").append("<tr bgcolor='#ADD8E6'><td width='150'><font color='#5F9EA0'><a href='./join.html?community=" + data[i]["_id"] + "&host_name=" + encodeURIComponent(data[i].host_name) + "&community_name=" + encodeURIComponent(data[i].name) + "'>" + data[i].name + "</font></td>,"+ 
+									$("#test-text2").append("<tr bgcolor='#ADD8E6'><td width='150'><font color='#5F9EA0'><a href='./join.html?community=" + data[i]["_id"] + "&host_name=" + encodeURIComponent(data[i].host_name) + "&community_name=" + encodeURIComponent(data[i].name) + "'>" + data[i].name + (data[i].protected?"&#128274;":" ") + "</font></td>,"+ 
 														"<td width='150'><font color='#5F9EA0'>" + data[i].host_name + "</font></td></tr>");
 								}
 
 								else{
-									$("#test-text2").append("<tr bgcolor='#F0F8FF'><td width='150'><font color='#5F9EA0'><a href='./join.html?community=" + data[i]["_id"] + "&host_name=" + encodeURIComponent(data[i].host_name) + "&community_name=" + encodeURIComponent(data[i].name) + "'>" + data[i].name + "</font></td>,"+ 
+									$("#test-text2").append("<tr bgcolor='#F0F8FF'><td width='150'><font color='#5F9EA0'><a href='./join.html?community=" + data[i]["_id"] + "&host_name=" + encodeURIComponent(data[i].host_name) + "&community_name=" + encodeURIComponent(data[i].name) + "'>" + data[i].name + (data[i].protected?"&#128274;":" ") +"</font></td>,"+ 
 														"<td width='150'><font color='#5F9EA0'>" + data[i].host_name + "</font></td></tr>");
 								}
 					
 							}
+
 						}
 			
 					});

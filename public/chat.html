@@ -1,13 +1,20 @@
 <!DOCTYPE html>
+
 <html>
+
+	<!-- ヘッダ : ページの情報を書く -->
+
 	<head>
 		<meta charset="UTF-8">
-		<title>タイトル</title>
+		<title>チャット画面</title>
 
 		<link rel="stylesheet" type="text/css" href="style.css">
 	<style>
 		#msg {
 			margin-bottom: 20px;
+		}
+		.msg {
+		    background: #FFF;
 		}
 		#messages {
 			margin-top: 15px;
@@ -48,11 +55,13 @@
 
 			
 	
+		<div id='msg' class="msg"><span style='border-style: solid ; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '></div>
 		<div id="messages"></div>
 
 
 
 			<div class="box" align="center">
+				<label id="to"></label>
 				<textarea  id="test-input"></textarea>
 				<button id="test-button"　type="button" style="height:40px;weight:120px;border:2px solid #40BAD2; background-color:#40BAD2;"><font style="font-size:1.2em;font-weight:800; line-height:1em; color:#FFFFFF;">書き込む</font></button>
 
@@ -84,7 +93,7 @@ height: 250px;
 
 
 
-
+			<script type="text/javascript"><!--document.title="name";//--></script>
 
 			<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
@@ -92,20 +101,37 @@ height: 250px;
 
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-url-parser/2.3.1/purl.js"></script>
 			<script>
+			
+				
+				var private = false;
+				var to = "";
+
+				function private_chat(data) {
+						$("#to").show();
+						var username = data;
+						$("#to").text(username);
+						
+						private = true;
+						to = username;
+				}
 
 				$(function() {
+
+				// ここからプログラムを書きます
 
 					
 					var socket = io.connect("http://chikuwabuz2.herokuapp.com/");
 
-					// URLからデータを取得する
 					var param = $.url();
 
 					var user_id = param.param("user_id");
 					var user_name = decodeURIComponent(param.param("user_name"));
 					var comm_id   = param.param("community");
+					var name = param.param("name");
+					document.title = name;
 
-					// コミュニティへ参加
+					$("#to").hide();
+
 					socket.emit("new_user", {
 
 						user_name: user_name,
@@ -113,55 +139,109 @@ height: 250px;
 
 					});
 
-					// 他のユーザが参加したとき
+					$("#msg").hide();
 					socket.on("user_joined", function(user) {
-						$("#messages").append("<div id='msg'>システム:<span style='border-style: solid ; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>新しいユーザが参加しました！ " + user.user_name +"</span></div><br />").hide().show(1000);
+						var msgh = $("#msg");
+						msgh.html("<span style='border-style: solid ; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1); background: #FFFFFF; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>システム:新しいユーザが参加しました！ <a href='javascript:private_chat(\"" + user.user_name + "\");' class='username' data-to='" + user.user_name + "'>" + user.user_name +"</a></span>");
+						msgh.css({
+							"position": "absolute",
+							left: Math.random() * $(window).width(),
+							top: Math.random() * ($(window).height() - 300),
+							opacity: 1.0
+						});			
+						
+						$(".msg").animate({opacity: "-=0.01"}, 1000);	
+						$("#messages").append(msgh.clone().show(1000));
 					});
 
-					// ユーザが退室したとき
 					socket.on("user_left", function(user) {
-						$("#messages").append("<div id='msg'>システム:<span style='border-style: solid ; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>ユーザ「" + user.user_name + "」が退室しました。 </span></div><br />").hide().show(1000);
+						var msgh = $("#msg");
+						msgh.html("<span style='border-style: solid ; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);  background: #FFFFFF;border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>システム:ユーザ「<a href='javascript:private_chat(\"" + user.user_name + "\");' class='username' data-to='" + user.user_name + "'>" + user.user_name +"</a>」が退室しました。 </span>");
+						msgh.css({
+							position: "absolute",
+							left: Math.random() * $(window).width(),
+							top: Math.random() * ($(window).height() - 300),
+							opacity: 1.0
+						});			
+						
+						$(".msg").animate({opacity: "-=0.01"}, 1000);	
+						$("#messages").append(msgh.clone().show(1000));
 					});
 
-					// プライベートメッセージを受信したとき
 					socket.on("private_message", function(data) {
-							$("#messages").append("<div id='msg'>" + data.user_name + ":<span style='border-style: solid ; background: #40BAD2; color: #FFF; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>ユーザ" + user.message + "</span></div><br />").hide().show(1000);
+						var msgh = $("#msg");
+						msgh.html("<span style='border-style: solid ;box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);  background: #40BAD2; color: #FFF; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '><a href='javascript:private_chat(\"" + data.user_name + "\");' class='username' data-to='" + data.user_name + "'>" + data.user_name +"</a>:ユーザ" + data.message + "</span>");
+						msgh.css({
+							position: "absolute",
+							left: Math.random() * $(window).width(),
+							top: Math.random() * ($(window).height() - 300),
+							opacity: 1.0
+						});			
+						
+						$(".msg").animate({opacity: "-=0.01"}, 1000);
+						$("#messages").append(msgh.clone().show(1000));
 					});
 
-					// メッセージを受信したとき
 					socket.on("message", function(msg) {
 
 						console.log("message");
 
 						console.log(msg);
+						var msgh = $("#msg");
+						msgh.html("<span style='border-style: solid ; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);  background: #FFFFFF; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '><a href='javascript:private_chat(\"" + msg.user_name + "\");' class='username' data-to='" + msg.user_name + "'>" + msg.user_name +"</a>:" + msg.message +"</span>");
+						msgh.css({
+							position: "absolute",
+							left: Math.random() * $(window).width(),
+							top: Math.random() * ($(window).height() - 300),
+							opacity: 1.0
+						});			
 						
-$("#messages").append("<div id='msg'>"+msg.user_name + ":<span style='border-style: solid ; border-color:#40BAD2; border-width:2px; border-radius:10px; padding: 10px 10px 10px 10px; width:600px; '>" + msg.message +"</span></div><br />").hide().show(1000);
+						$(".msg").animate({opacity: "-=0.01"}, 1000);
+						$("#messages").append(msgh.clone().show(1000));
 
 					});
 
-					// 書き込みボタンがクリックされたとき
 					$("#test-button").click(function () {
 
 
-						socket.emit("message", {
+						if (!private) {
+							socket.emit("message", {
 
-							room: comm_id,
+								room: comm_id,
 
-							message: $("#test-input").val(),
+								message: $("#test-input").val(),
 
-							user_id: user_id,
+								user_id: user_id,
 
-							user_name: user_name,
+								user_name: user_name,
 
-							created_at: Date.now()
+								created_at: Date.now()
 	
-						});
+							});
+						} else {
+							socket.emit("private_message", {
+
+								room: comm_id,
+
+								message: $("#test-input").val(),
+
+								user_id: user_id,
+
+								user_name: user_name,
+								
+								des_user_name: to,
+
+								created_at: Date.now()
+	
+							});
+						}
+						$("#to").hide();
+						private = false;
 
 						$("#test-input").val("");
 
 					});
 
-					// 退出ボタンがクリックされたとき
 					$("#test-button2").click(function () {
 
 						socket.emit("user_left", {

@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html>
+
+	<!-- ヘッダ : ページの情報を書く -->
+
 	<head>
 		<meta charset="UTF-8">
 		<title>コミュニティ作成</title>
@@ -26,7 +29,7 @@
 					<li><a href="./index.html">ホーム</a></li>
 
 					<li></li>
-					<li><a href="./mkcom.html">コミュニティ作成</a></li>
+					<li><a href="./make.html">コミュニティ作成</a></li>
 
 
 				</ul>
@@ -47,6 +50,9 @@
 			<br>
 			<br>
 			<div    id="test-text2" style="font-size:1.2em;font-weight:800; line-height:1em;color:#40BAD2;">ニックネーム　　<input id="host_name" type="text" name="nickname" size="30" maxlength="30"></div>
+			<br>
+			<br>
+			<div    id="test-text3" style="font-size:1.2em;font-weight:800; line-height:1em;color:#40BAD2;">パスワード　　　<input id="password" type="text" name="password" size="30" maxlength="30"></div>
 			<br>
 			<br>
 			<button id="test-button" type="button" style="height:40px;weight:120px;border:2px solid #40BAD2; background-color:#40BAD2;"><font style="font-size:1.2em;font-weight:800; line-height:1em; color:#FFFFFF;">作成する</font></button>
@@ -74,6 +80,7 @@
 					var host_name=$("#host_name").val();
 					var _id = uuid();
 					var host_id = uuid();
+					var password=$("#password").val();
 					$.post({
 						url:"http://chikuwabuz2.herokuapp.com/community/create",
 						data:{
@@ -81,10 +88,11 @@
 							name: name,
 							host_name: host_name,
 							host_id: host_id,
-							password: ""
+							password: password,
+							username: host_name
 						},
 						success: function(data) {
-							location.href = "./chat.html?user_id=" + host_id +"&user_name" + encodeURIComponent(host_name) + "&community=" + _id;
+							location.href = "./chat.html?user_id=" + host_id +"&user_name=" + encodeURIComponent(host_name) + "&community=" + _id + "&name="+ name;
 						}
 					});
 
