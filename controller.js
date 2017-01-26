@@ -23,7 +23,8 @@ exports.createCommunity = function(req, res){
 			name: name,
 			host_name: host_name,
 			host_id: host_id,
-			password: hash
+			password: hash,
+			protected: (password != "")
 		})
 
 		newCommunity.save(function(err, community){
@@ -97,7 +98,7 @@ exports.joinCommunity = function(req, res){
 // コミュニティ削除
 exports.deleteCommunity = function(req, res){
 	var _id = req.params.community_id
-	var user_id = Number(req.body.user_id)
+	var user_id = req.body.user_id
 
 	// user_idがhost_idと等しければ削除
 	Community.findOne({_id: _id}).exec(function(err, community){
