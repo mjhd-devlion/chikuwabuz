@@ -59,7 +59,7 @@ exports.joinCommunity = function(req, res){
 	var _id = req.body._id.trim()
 	var password = req.body.password //.trim()
 	
-	if (password != "") password = password.trim()
+	//if (password != "") password = password.trim()
 
 	// Check, if _id or password is blank
 	// if (password === "") {
