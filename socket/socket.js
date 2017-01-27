@@ -32,7 +32,7 @@ socket.on("new_user", function(data){
 			// Create message and save to Database
 
 			// Send message to those connected in the room
-			data.message = sanitizeHtml(data.message, { allowedTags: ["img", "iframe", "p", "b", "strong", "i", "em", "a"]});
+			data.message = sanitizeHtml(data.message, { allowedTags: ["img", "iframe", "p", "b", "strong", "i", "em", "a"], allowedAttributes: false});
 			
 			io.in(data.room).emit("message", data);
 		})
@@ -40,7 +40,7 @@ socket.on("new_user", function(data){
 		// Listens for Private message (Client should send destination user_name)
 		socket.on("private_message", function(data){
 			// Server will emit the message to destination user
-			data.message = sanitizeHtml(data.message, { allowedTags: ["img", "iframe", "p", "b", "strong", "i", "em", "a"]});
+			data.message = sanitizeHtml(data.message, { allowedTags: ["img", "iframe", "p", "b", "strong", "i", "em", "a"], allowedAttributes: false});
 			
 			connectedUsers[data.des_user_name].emit("private_message", data)
 
