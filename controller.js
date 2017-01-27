@@ -70,6 +70,7 @@ exports.joinCommunity = function(req, res){
 	}
 
 	// Check, if password match
+	if (password !== "") {
 	Community.findOne({"_id": _id})
 			.select("password")		// query only password and _id
 			.exec(function(err, community){
@@ -92,6 +93,11 @@ exports.joinCommunity = function(req, res){
 					}
 				})
 			})
+	} else {
+		Community.findOne({_id: _id}).exec(function(err, community){	
+			res.status(200).send(community)
+		}
+	}
 }
 
 
