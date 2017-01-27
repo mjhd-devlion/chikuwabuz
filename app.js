@@ -48,6 +48,6 @@ app.post("/community/join", controller.joinCommunity)
 app.post("/community/delete/:community_id", controller.deleteCommunity)
 
 //
-//app.get("/chat/information/:community_id", controller.chatInformation)
+app.get("/chat/information/:community_id", controller.chatInformation)
 
 module.exports = server
