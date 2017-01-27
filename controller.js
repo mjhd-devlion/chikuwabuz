@@ -133,7 +133,7 @@ exports.chatInformation = function(req, res){
 						return res.status(422).send("Can not find community with id " + _id)
 					}
 					//
-					return res.status(200).json(community.messages)
+					return res.status(200).json(community)
 				})
 }
 
