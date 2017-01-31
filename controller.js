@@ -47,7 +47,7 @@ exports.getCommunities = function(req, res){
 					.select({messages: 0})	// Exclude messages(reducing large payload)
 
 	if (req.params.sort_by === "created_at") {
-		query = query.sort({req.params.sort_by: -1})
+		query = query.sort({created_at: -1})
 	} else {
 		query = query.sort(req.params.sort_by)
 	}
