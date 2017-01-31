@@ -5,14 +5,15 @@ var Message = require("./model").Message
 var mongoose = require("mongoose")
 var comparePassword = require("./model").comparePassword
 var hashedPassword = require("./model").hashedPassword
+var sanitizeHtml = require('sanitize-html');
 
 
 // コミュニティの作成
 exports.createCommunity = function(req, res){
-	var _id = req.body._id
-	var name = req.body.name
-	var host_name = req.body.host_name
-	var host_id = req.body.host_id
+	var _id       = sanitizeHtml(req.body._id)
+	var name      = sanitizeHtml(req.body.name)
+	var host_name = sanitizeHtml(req.body.host_name)
+	var host_id   = sanitizeHtml(req.body.host_id)
 	var password = req.body.password
 	// Hash a password and save
 	var hash= hashedPassword(password, function(err, hash){

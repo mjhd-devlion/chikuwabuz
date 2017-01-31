@@ -7,9 +7,9 @@ module.exports = function(io){
 		//var userDetails = {}
 		
 		// Listens for new user		
-socket.on("new_user", function(data){
+		socket.on("new_user", function(data){
 			// Add each socket to list (for private message)
-			socket.user_name = data.user_name
+			socket.user_name = sanitizeHtml(data.user_name)
 			socket.room      = data.room
 			connectedUsers[data.user_name] = socket
 
