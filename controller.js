@@ -5,14 +5,15 @@ var Message = require("./model").Message
 var mongoose = require("mongoose")
 var comparePassword = require("./model").comparePassword
 var hashedPassword = require("./model").hashedPassword
+var sanitizeHtml = require('sanitize-html');
 
 
 // コミュニティの作成
 exports.createCommunity = function(req, res){
-	var _id = req.body._id
-	var name = req.body.name
-	var host_name = req.body.host_name
-	var host_id = req.body.host_id
+	var _id       = sanitizeHtml(req.body._id)
+	var name      = sanitizeHtml(req.body.name)
+	var host_name = sanitizeHtml(req.body.host_name)
+	var host_id   = sanitizeHtml(req.body.host_id)
 	var password = req.body.password
 	// Hash a password and save
 	var hash= hashedPassword(password, function(err, hash){
@@ -42,14 +43,20 @@ exports.createCommunity = function(req, res){
 exports.getCommunities = function(req, res){
 	console.log(req.params)
 
-	Community.find({}).limit(Number(req.params.limit))
+	var query = Community.find({}).limit(Number(req.params.limit))
 					.select({messages: 0})	// Exclude messages(reducing large payload)
-					.sort(req.params.sort_by)
-					.exec(function(err, communities){
-						if (err) {return res.status(422).send("Error at getCommunities")}
-						//
-						res.status(200).send(communities)
-					})
+
+	if (req.params.sort_by === "created_at") {
+		query = query.sort({created_at: -1})
+	} else {
+		query = query.sort(req.params.sort_by)
+	}
+
+	query.exec(function(err, communities){
+		if (err) {return res.status(422).send("Error at getCommunities")}
+		//
+		res.status(200).send(communities)
+	})
 }
 
 
@@ -57,7 +64,9 @@ exports.getCommunities = function(req, res){
 // コミュニティ参加
 exports.joinCommunity = function(req, res){
 	var _id = req.body._id.trim()
-	var password = req.body.password.trim()
+	var password = (req.body.password || "").trim()
+	
+	//if (password != "") password = password.trim()
 
 	// Check, if _id or password is blank
 	// if (password === "") {
@@ -133,7 +142,7 @@ exports.chatInformation = function(req, res){
 						return res.status(422).send("Can not find community with id " + _id)
 					}
 					//
-					return res.status(200).json(community.messages)
+					return res.status(200).json(community)
 				})
 }
 

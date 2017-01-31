@@ -17,6 +17,7 @@
 				<ul class="left">
 					<li class="logo" onclick="location.href='https://ja.wikipedia.org/wiki/%E3%81%A1%E3%81%8F%E3%82%8F%E3%81%B6'">チクちゃ</a></li>
 					<li><a href="./index.html">ホーム</a></li>
+					<li>＞</li>
 					<li><a href="./join.html">コミュニティ参加</a></li>
 				</ul>
 			</nav>
@@ -38,9 +39,12 @@
 				ニックネーム　<input id="name" type="text" name="nickname" size="30" maxlength="10"></div><br>
 			<br>
 
+			<div>
+			<span id="password_text" style="font-size:1.2em;font-weight:800; line-height:1em;color:#40BAD2;"></span>
+			<span id="password_box"></span>
 
-			<div style="font-size:1.2em;font-weight:800; line-height:1em;color:#40BAD2;">
-				パスワード　<input id="password" type="text" name="password" size="30" maxlength="10"></div><br>
+			</div>
+			<br>
 			<br>
 
 			<div style="font-size:1.2em;font-weight:800; line-height:1em;color:#40BAD2;" id="error"> </div><br>
@@ -73,7 +77,19 @@
 
 				$("#com_name").text(decodeURIComponent(param.param("community_name")));
 				$("#host_name").text(decodeURIComponent(param.param("host_name")));
-
+				
+				$.get({
+					url:"http://chikuwabuz2.herokuapp.com/chat/information/"+_id, // 接続先
+			
+						// 通信が完了したとき
+						success: function(data) {
+							if(data.protected==true){
+								$("#password_text").text("パスワード　");
+								$("#password_box").html("<input id='password' type='password' name='password' size='30' maxlength='10'>");
+							}
+						}
+				});
+				
 				$("#test-button").click(function () {
 					var user_name = $("#name").val();
 					var user_id = uuid();

@@ -1,3 +1,5 @@
+var sanitizeHtml = require('sanitize-html');
+
 module.exports = function(io){
 	io.on("connection", function(socket){
 
@@ -5,9 +7,9 @@ module.exports = function(io){
 		//var userDetails = {}
 		
 		// Listens for new user		
-socket.on("new_user", function(data){
+		socket.on("new_user", function(data){
 			// Add each socket to list (for private message)
-			socket.user_name = data.user_name
+			socket.user_name = sanitizeHtml(data.user_name)
 			socket.room      = data.room
 			connectedUsers[data.user_name] = socket
 
@@ -30,12 +32,16 @@ socket.on("new_user", function(data){
 			// Create message and save to Database
 
 			// Send message to those connected in the room
-			io.in(data.room).emit("message", data)
+			data.message = sanitizeHtml(data.message, { allowedTags: ["img", "iframe", "p", "b", "strong", "i", "em", "a"], allowedAttributes: false});
+			
+			io.in(data.room).emit("message", data);
 		})
 
 		// Listens for Private message (Client should send destination user_name)
 		socket.on("private_message", function(data){
 			// Server will emit the message to destination user
+			data.message = sanitizeHtml(data.message, { allowedTags: ["img", "iframe", "p", "b", "strong", "i", "em", "a"], allowedAttributes: false});
+			
 			connectedUsers[data.des_user_name].emit("private_message", data)
 
 		})

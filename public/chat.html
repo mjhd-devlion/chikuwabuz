@@ -44,6 +44,10 @@
 
 					<li><a href="./index.html">ホーム</a></li>
 
+					<li>＞</li>
+
+					<li id="text1"></li>
+
 				</ul>
 
 			</nav>
@@ -61,11 +65,12 @@
 
 
 			<div class="box" align="center">
+				<span id="text2" style='color:#40BAD2;font-weight:bold;'></span>
 				<label id="to"></label>
 				<textarea  id="test-input"></textarea>
-				<button id="test-button"　type="button" style="height:40px;weight:120px;border:2px solid #40BAD2; background-color:#40BAD2;"><font style="font-size:1.2em;font-weight:800; line-height:1em; color:#FFFFFF;">書き込む</font></button>
-
-				<button id="test-button2"　type="button" style="height:40px;weight:120px;border:2px solid #40BAD2; background-color:#40BAD2;"><font style="font-size:1.2em;font-weight:800; line-height:1em; color:#FFFFFF;">退出する</font></button><br>
+				<button id="test-button"　type="button" style="height:40px;weight:120px; background-color:#40BAD2;"><font style="font-size:1.2em;font-weight:800; line-height:1em; color:#FFFFFF;">書き込む</font></button>
+				<button id="test-button2"　type="button" style="height:40px;weight:120px; background-color:#40BAD2;"><font style="font-size:1.2em;font-weight:800; line-height:1em; color:#FFFFFF;">退出する</font></button>
+				<span id="test-button3"></span><br>
 			</div>
 <style type="text/css">
 article {
@@ -203,6 +208,29 @@ height: 250px;
 
 					});
 
+
+
+					$("#text1").append(name);
+					$("#text2").append(user_name);
+
+					// サーバと通信する
+         		 		$.get({
+						 url: "http://chikuwabuz2.herokuapp.com/chat/information/"+comm_id, // 接続先
+            
+						 // 通信が完了したとき
+						success: function(json) {
+
+							// 削除ボタンを表示する
+							if(json.host_id == user_id){
+								$("#test-button3").append("<button type='button' style='height:40px;weight:120px; background-color:#40BAD2;'><font style='font-size:1.2em;font-weight:800; line-height:1em; color:#FFFFFF;'>削除する</font></button>");
+							}
+						}
+
+
+					});
+
+					
+
 					$("#test-button").click(function () {
 
 
@@ -254,6 +282,29 @@ height: 250px;
 
 						window.location.href = "./index.html";
 					});
+
+
+					// 削除ボタンをクリックしたとき
+					$("#test-button3").click(function () {
+				
+		 				// サーバと通信する
+		 				$.post({
+							url: "http://chikuwabuz2.herokuapp.com/community/delete/"+comm_id, // 接続先
+							data:{
+								community_id: comm_id,
+								user_id: user_id,
+								password: ""
+							},
+
+							// 通信が完了したとき
+							success: function(data) {
+
+								window.location.href = "./index.html";
+
+							
+							}
+						});
+	 				});
 
 					// ここまで
 

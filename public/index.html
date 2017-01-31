@@ -77,8 +77,36 @@
 
 		<div class="blockb" align="center">
 		
-		<img id=chikuwabu src="ちくわぶ2.png" onclick="document.getElementById('chikuwabu').src='大根.png'" title="ちくわぶより普通に大根が好き～～"><br>
+		<img id=chikuwabu src="ちくわぶ2.png" onclick="changeIMG()" title="ちくわぶより普通に大根が好き～～"><br>
+		<script>
+
+		//画像を配列に格納する
+		var img = new Array();
+
+		img[0] = new Image();
+		img[0].src = "ちくわぶ2.png";
+		img[1] = new Image();
+		img[1].src = "大根.png";
 		
+		//画像番号用のグローバル変数
+		var cnt=0;
+
+		//画像切り替え関数
+		function changeIMG(){
+  
+			  //画像番号を進める
+			  if (cnt == 1)
+			  { cnt=0; }
+			  else
+			  { cnt++; }
+  
+			  //画像を切り替える
+			  document.getElementById("chikuwabu").src=img[cnt].src;
+		}
+
+		</script>
+
+
 		<button id="button" type="button" style="height:40px;weight:120px; background-color:#40BAD2;" onclick="location.href='./make.html'"><font style="font-size:1.2em;font-weight:800; line-height:1em; color:#FFFFFF;">　コミュニティ作成　</font></button>
 
 		</div>
