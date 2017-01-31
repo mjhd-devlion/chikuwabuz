@@ -43,14 +43,20 @@ exports.createCommunity = function(req, res){
 exports.getCommunities = function(req, res){
 	console.log(req.params)
 
-	Community.find({}).limit(Number(req.params.limit))
+	var query = Community.find({}).limit(Number(req.params.limit))
 					.select({messages: 0})	// Exclude messages(reducing large payload)
-					.sort(req.params.sort_by)
-					.exec(function(err, communities){
-						if (err) {return res.status(422).send("Error at getCommunities")}
-						//
-						res.status(200).send(communities)
-					})
+
+	if (req.params.sort_by === "created_at") {
+		query = query.sort({req.params.sort_by: -1})
+	} else {
+		query = query.sort(req.params.sort_by)
+	}
+
+	query.exec(function(err, communities){
+		if (err) {return res.status(422).send("Error at getCommunities")}
+		//
+		res.status(200).send(communities)
+	})
 }
 
 
