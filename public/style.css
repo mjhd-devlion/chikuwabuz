@@ -1,6 +1,17 @@
+@font-face {
+    font-family: 'makinasscrap_5';
+    src: url('makinas-scrap-5.woff2') format('woff2'),
+    	 url('makinas-scrap-5.otf') format('otf'),
+         url('makinas-scrap-5.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 * {
 	margin:  0;
 	padding: 0;
+	font-family: 'makinasscrap_5';
 }
 
 header {
