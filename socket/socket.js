@@ -18,12 +18,16 @@ module.exports = function(io){
 			// New user joins the room that they has choosed (clicked)
 			socket.join(room)
 			// Tell all those in the room that a new user joined
+			
+			data.user_name = socket.user_name
+			
 			io.in(room).emit("user_joined", data)
 		})
 
 		// Listens for left room
 		socket.on("user_left", function(data){
 			socket.leave(data.room)
+			data.user_name = sanitizeHtml(data.user_name)
 			io.in(data.room).emit("user_left", data)
 		})
 
@@ -33,6 +37,7 @@ module.exports = function(io){
 
 			// Send message to those connected in the room
 			data.message = sanitizeHtml(data.message, { allowedTags: ["img", "iframe", "p", "b", "strong", "i", "em", "a"], allowedAttributes: false});
+			data.user_name = sanitizeHtml(data.user_name)
 			
 			io.in(data.room).emit("message", data);
 		})
@@ -41,6 +46,7 @@ module.exports = function(io){
 		socket.on("private_message", function(data){
 			// Server will emit the message to destination user
 			data.message = sanitizeHtml(data.message, { allowedTags: ["img", "iframe", "p", "b", "strong", "i", "em", "a"], allowedAttributes: false});
+			data.user_name = sanitizeHtml(data.user_name)
 			
 			connectedUsers[data.des_user_name].emit("private_message", data)
 
