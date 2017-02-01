@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1">
 		<title>ホーム</title>
 		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
@@ -224,19 +225,31 @@
 
 		<style type="text/css">
 		div.blocka {
-
 			float: left;
 			width: 30%;
 		}
 		div.blockb {
-		  
 			float: left;
 			width: 40%;
 		}
 		div.blockc {
-		  
 			float: left;
 			width: 30%;
+		}
+
+		@media screen and (max-width: 500px) {
+		div.blocka {
+			float: none;
+			width: 100%;
+		}
+		div.blockb {
+			float: none;
+			width: 100%;
+		}
+		div.blockc {
+			float: none;
+			width: 100%;
+		}
 		}
 		</style>
 
